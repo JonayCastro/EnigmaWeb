@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Mis CSS-->
+    <link rel="stylesheet" href="index.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!--Mis scripts-->
+    <script src="objects/diccionario.js"></script>
+    <script src="objects/rotor.js"></script>
+    <script src="objects/reflector.js"></script>
+    <script src="index.js"></script>
+    
+    <title>Enigma Web</title>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Enigma</h1>
+            <p class="lead">Codificador de Mensajes</p>
+            <hr class="my-2">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" target="_blank"
+                    href="https://es.wikipedia.org/wiki/Enigma_(m%C3%A1quina)" role="button"
+                    title="Enlace a Wikipedia">Información sobre enigma</a>
+                <a class="btn btn-primary btn-lg" target="_blank" href="https://github.com/JonayCastro" role="button"
+                    title="Enlace a GitHub del autor">GitHub del autor</a>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col" id="container-rotors">
+                <h2>Rotor 1</h2>
+                <div class="form-group row section">
+                    <div class="col">
+                        <label for="rotor1">Posición inicial</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor1" id="rotor1-init"></select>
+                    </div>
+                    <div class="col">
+                        <label for="rotor1-salto">Salto</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor1-salto" id="rotor1-salto"></select>
+                    </div>
+                </div>
+                <h2>Rotor 2</h2>
+                <div class="form-group row section">
+                    <div class="col">
+                        <label for="rotor2">Posición inicial</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor2" id="rotor2-init"></select>
+                    </div>
+                    <div class="col">
+                        <label for="rotor2-salto">Salto</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor2-salto" id="rotor2-salto">
+                        </select>
+                    </div>
+                </div>
+                <h2>Rotor 3</h2>
+                <div class="form-group row section">
+                    <div class="col">
+                        <label for="rotor3">Posición inicial</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor3" id="rotor3-init"></select>
+                    </div>
+                    <div class="col">
+                        <label for="rotor3-salto">Salto</label>
+                        <select class="form-control form-control-sm rotor-select" name="rotor3-salto" id="rotor3-salto"></select>
+                    </div>
+                </div>
+                <h2>Reflector</h2>
+                <div class="form-group row section">
+                    <div class="col">
+                        <label for="rotor3">Posición inicial</label>
+                        <select class="form-control form-control-sm rotor-select" name="reflector" id="reflector"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col" id="text-areas-container">
+                <h2>Mensaje</h2>
+                <div class="container">
+
+                    <div class="form-group">
+                        <label for="in-text">Entrada</label>
+                        <textarea class="form-control" name="in-text" id="in-text" rows="10"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="out-text">Salida</label>
+                        <textarea class="form-control" name="out-text" id="out-text" rows="10" readonly></textarea>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
