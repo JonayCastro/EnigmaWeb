@@ -7,23 +7,29 @@ class Rotor{
         this.objDic = obj;
     }
     
-    setPosInit(c){
-        this.posInit = c;
-    }
-    
-    setPosPas(c){
-        this.posPass = c;
-    }
-    
-    creaDics(){
+    init(){
         this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(this.posInit));
         this.dicOut = this.objDic.creaDicEncode(this.objDic.getPosChar(this.dicIn[4]));
     }
+
+    codificaIda(item){
+        return this.dicOut.indexOf(this.dicIn[item]);
+    }
+
+    codificaVuelta(item){
+        return this.dicIn.indexOf(this.dicOut[item]);
+    }
     
     avanza(){
-        if(this.dicIn[0] === this.posPass){
-           this.dicIn =  this.objDic.creaDicEncode(this.objDic.getPosChar(this.dicIn[1]));
-        } 
+        this.dicIn =  this.objDic.creaDicEncode(this.objDic.getPosChar(this.dicIn[1]));
+    }
+
+    getPosInit(){
+        return this.dicIn[0];
+    }
+
+    isInPaso(){
+        return this.dicIn[0] === this.posPass;
     }
 
     

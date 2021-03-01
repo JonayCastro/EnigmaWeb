@@ -3,15 +3,16 @@ var abecPuntos = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M
 var elementos;
 var textAreaIn;
 var textAreaOut;
+var rotores = [];
+var reflector;
+var salida = '';
 
-const dic = new Diccionario(abecPuntos);
+const dic = new Diccionario(abecedario);
 
 window.onload = ()=>{
-
-
-
     textAreaIn = document.getElementById('in-text');
-    textAreaIn.addEventListener('keypress', textIn);
+    textAreaIn.addEventListener('keyup', textIn);
+    textAreaIn.addEventListener('change', textIn);
 
     textAreaOut = document.getElementById('out-text');
 
@@ -22,10 +23,55 @@ window.onload = ()=>{
         posInitRandom(elementos[i]);
         elementos[i].addEventListener('change', getOption);
     }
+
+    for(var j = 0;j<3;j++){
+        let idenInit = '#rotor-init'+j
+        let idenPaso = '#rotor-salto'+j
+
+        let posInitRo = $(idenInit).val();
+        let posPaso = $(idenPaso).val();
+
+        let rotor = new Rotor(posInitRo, posPaso, dic);
+        rotor.init();
+        rotores.push(rotor);
+    }
+    let posInitRe = $('#reflector-init').val();
+    reflector = new Reflector(posInitRe, dic);
+    reflector.init();
+}
+
+function avanzaCtrl(){
+    rotores[0].avanza();
+    elementos[0].value = rotores[0].getPosInit();
+    
+    if(rotores[0].isInPaso()){
+        rotores[1].avanza();
+        elementos[2].value = rotores[1].getPosInit();
+    }
+    if(rotores[1].isInPaso()){
+        rotores[2].avanza();
+        elementos[4].value = rotores[2].getPosInit();
+    }
 }
 
 function textIn(e){
-    textAreaOut.value = e.target.value;
+    if(e.target.value.length !== 0){
+        let one = dic.getPosChar((textAreaIn.value.charAt(textAreaIn.value.length-1).toUpperCase()));
+        
+        let two = rotores[0].codificaIda(one);
+        let three = reflector.codifica(two);
+        let four = rotores[0].codificaVuelta(three);
+        let five = dic.getCharDic(four);
+        salida+=five;
+        
+        textAreaOut.value = salida;
+
+        avanzaCtrl();
+    }else{
+        salida = '';
+        textAreaOut.value = '';
+    }
+    
 }
 
 function posInitRandom(e){
