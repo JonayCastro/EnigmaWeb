@@ -1,13 +1,12 @@
 class Reflector{
-    constructor(posInit, obj){
-        this.posInit = posInit;
+    constructor(obj){
         this.objDic = obj;
         this.dicIn = [];
         this.dicOut = [];
     }
 
-    init(){
-        this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(this.posInit));
+    init(posInit){
+        this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(posInit));
         this.dicOut = this.objDic.creaReverseDic(this.dicIn);
     }
 

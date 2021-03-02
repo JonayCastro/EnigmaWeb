@@ -12,7 +12,7 @@ const dic = new Diccionario(abecedario);
 window.onload = ()=>{
     textAreaIn = document.getElementById('in-text');
     textAreaIn.addEventListener('keyup', textIn);
-    textAreaIn.addEventListener('change', textIn);
+    //textAreaIn.addEventListener('change', textIn);
 
     textAreaOut = document.getElementById('out-text');
 
@@ -25,19 +25,23 @@ window.onload = ()=>{
     }
 
     for(var j = 0;j<3;j++){
-        let idenInit = '#rotor-init'+j
-        let idenPaso = '#rotor-salto'+j
+        let idenInit = '#rotor-init-'+j
+        let idenPaso = '#rotor-salto-'+j
 
         let posInitRo = $(idenInit).val();
         let posPaso = $(idenPaso).val();
 
-        let rotor = new Rotor(posInitRo, posPaso, dic);
-        rotor.init();
+        let rotor = new Rotor(posPaso, dic);
+        initRotor(rotor, posInitRo);
         rotores.push(rotor);
     }
     let posInitRe = $('#reflector-init').val();
-    reflector = new Reflector(posInitRe, dic);
-    reflector.init();
+    reflector = new Reflector(dic);
+    reflector.init(posInitRe);
+}
+
+function initRotor(rotor, posInit){
+    rotor.init(posInit);
 }
 
 function avanzaCtrl(){
@@ -55,7 +59,11 @@ function avanzaCtrl(){
 }
 
 function textIn(e){
+    console.log('textIn');
     if(e.target.value.length !== 0){
+        for(let j = 0;j<elementos.length;j++){
+            elementos[j].setAttribute('disabled', true);
+        }
         let one = dic.getPosChar((textAreaIn.value.charAt(textAreaIn.value.length-1).toUpperCase()));
         
         let two = rotores[0].codificaIda(one);
@@ -63,11 +71,13 @@ function textIn(e){
         let four = rotores[0].codificaVuelta(three);
         let five = dic.getCharDic(four);
         salida+=five;
-        
         textAreaOut.value = salida;
 
         avanzaCtrl();
     }else{
+        for(let h = 0;h<elementos.length;h++){
+            elementos[h].removeAttribute('disabled');
+        }
         salida = '';
         textAreaOut.value = '';
     }
@@ -91,10 +101,20 @@ function loadAlpha(rotor){
 
 function getOption(e){
     let selec = e.target.value;
-    let idSelec = e.target.id;
+    let idSelec = (e.target.id.split('-'));
+
+    if(idSelec[0] === 'rotor'){
+        if(idSelec[1] === 'init'){
+            rotores[idSelec[2]].init(selec);
+        }else{
+            rotores[idSelec[2]].setNewPaso(selec);
+        }
+    }else{
+        reflector.init(selec);
+    }
 
     textAreaIn.value = '';
     textAreaOut.value = '';
     
-    console.log(selec+' '+idSelec);
+    
 }

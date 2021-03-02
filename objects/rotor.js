@@ -1,14 +1,13 @@
 class Rotor{
-    constructor(posInit, posPas, obj){
-        this.posInit = posInit;
+    constructor(posPas, obj){
         this.posPass = posPas;
         this.dicIn = [];
         this.dicOut = [];
         this.objDic = obj;
     }
     
-    init(){
-        this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(this.posInit));
+    init(posInit){
+        this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(posInit));
         this.dicOut = this.objDic.creaDicEncode(this.objDic.getPosChar(this.dicIn[4]));
     }
 
@@ -26,6 +25,10 @@ class Rotor{
 
     getPosInit(){
         return this.dicIn[0];
+    }
+
+    setNewPaso(newPaso){
+        this.posPass = newPaso;
     }
 
     isInPaso(){
