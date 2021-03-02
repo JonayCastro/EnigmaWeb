@@ -3,6 +3,7 @@ class Reflector{
         this.objDic = obj;
         this.dicIn = [];
         this.dicOut = [];
+        this.tipo = 'relfector';
     }
 
     init(posInit){
@@ -12,5 +13,9 @@ class Reflector{
 
     codifica(item){
         return this.dicOut.indexOf(this.dicIn[item]);
+    }
+
+    getTipo(){
+        return this.tipo;
     }
 }

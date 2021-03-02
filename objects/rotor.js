@@ -1,6 +1,7 @@
 class Rotor{
     constructor(posPas, obj){
         this.posPass = posPas;
+        this.tipo = 'rotor';
         this.dicIn = [];
         this.dicOut = [];
         this.objDic = obj;
@@ -9,6 +10,13 @@ class Rotor{
     init(posInit){
         this.dicIn = this.objDic.creaDicEncode(this.objDic.getPosChar(posInit));
         this.dicOut = this.objDic.creaDicEncode(this.objDic.getPosChar(this.dicIn[4]));
+
+        /* console.log(this.dicIn);
+        console.log(this.dicOut); */
+    }
+
+    getTipo(){
+        return this.tipo;
     }
 
     codificaIda(item){

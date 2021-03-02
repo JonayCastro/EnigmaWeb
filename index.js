@@ -32,16 +32,17 @@ window.onload = ()=>{
         let posPaso = $(idenPaso).val();
 
         let rotor = new Rotor(posPaso, dic);
-        initRotor(rotor, posInitRo);
+        initElemento(rotor, posInitRo);
         rotores.push(rotor);
     }
     let posInitRe = $('#reflector-init').val();
     reflector = new Reflector(dic);
-    reflector.init(posInitRe);
+    initElemento(reflector, posInitRe);
 }
 
-function initRotor(rotor, posInit){
-    rotor.init(posInit);
+function initElemento(ele, posInit){
+    if(ele.getTipo() === 'rotor') ele.init(posInit);
+    else reflector.init(posInit);
 }
 
 function avanzaCtrl(){
@@ -58,26 +59,53 @@ function avanzaCtrl(){
     }
 }
 
-function textIn(e){
-    console.log('textIn');
-    if(e.target.value.length !== 0){
+function disableEnableSelects(opcion=0){
+    if(opcion === 1){
         for(let j = 0;j<elementos.length;j++){
             elementos[j].setAttribute('disabled', true);
         }
-        let one = dic.getPosChar((textAreaIn.value.charAt(textAreaIn.value.length-1).toUpperCase()));
-        
-        let two = rotores[0].codificaIda(one);
-        let three = reflector.codifica(two);
-        let four = rotores[0].codificaVuelta(three);
-        let five = dic.getCharDic(four);
-        salida+=five;
-        textAreaOut.value = salida;
-
-        avanzaCtrl();
     }else{
         for(let h = 0;h<elementos.length;h++){
             elementos[h].removeAttribute('disabled');
         }
+
+    }
+}
+
+function textIn(e){
+    if(e.target.value.length !== 0){
+
+        disableEnableSelects(1);
+        
+        let one = dic.getPosChar((textAreaIn.value.charAt(textAreaIn.value.length-1).toUpperCase()));
+        
+        /* let two = rotores[0].codificaIda(one); */
+        let two = one;
+        for(let g= 0;g<rotores.length;g++){
+            //console.log('g '+g+' '+rotores[g]);
+            two = rotores[g].codificaIda(two);
+        }
+        
+        let three = reflector.codifica(two);
+        
+        /* let four = rotores[0].codificaVuelta(three); */
+        let four = three;
+        for(let k= 0;k<rotores.length;k++){
+            four = rotores[k].codificaVuelta(four);
+            //console.log('k '+k+' '+rotores[k]);
+        }
+        let five = dic.getCharDic(four);
+        
+        
+
+        if(e.code !== 'Backspace' && e.code !== 'Space') {
+            salida+=five;
+            textAreaOut.value = salida;
+            avanzaCtrl();
+        }
+    }else{
+        disableEnableSelects();
+
         salida = '';
         textAreaOut.value = '';
     }
